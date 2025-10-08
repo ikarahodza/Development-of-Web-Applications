@@ -2,36 +2,30 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <!DOCTYPE html> 
-    <html>
-	<head> 
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/media.css">
-		<title>First Assignment</title>
-	</head>
-	<body>
         <div class="main-container">
             <header>
                 <span class="logo">
-                    <img src="images/table.jpg" />
+                    <img src="https://cdn.mos.cms.futurecdn.net/JAa8rg6avnznk7WXqLS8sQ-840-80.jpg.webp" />
                 </span>
             
                 <div class="nav-container">
-                    <div class="nav-row">
+                    <div class="nav-row"> 
                         <a href="">Link 1</a> |
                         <a href="">Link 2</a> |
                         <a href="">Link 3</a> |
                         <a href="">Link 4</a> |
                         <a href="">Link 5</a> |
                         <a href="">Link 6</a> |
-                        <a href="">Link 7</a>
+                        <asp:LinkButton ID="AdminLinkButton" runat="server" OnClick="AdminLink_Click"></asp:LinkButton>
+                  
                         <div class="search-container">
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
+                            <form id="searchForm">
+                                <input type="text" id="searchBox" placeholder="Search..." autocomplete="off" />
+                                <div id="searchResults" class="search-results"></div>
+                            </form>
                         </div>
+
+
                     </div>
     
                     <div class="nav-row second-links" style="margin-top: 5px">
@@ -46,107 +40,92 @@
                         <a href="">Link 9</a>
                     </div>
                 </div>
-                
             </header>
 
-            <!-- SLIDESHOW -->
             <div class="row1">
                 <div class="gallery-container">
-                    <div class="news active" style="background-image: url('images/banJunkFood.jpg')">
-                        <div class="news-content">
-                            <div class="text-container">
-                                <span class="stackedtext top-text" style="margin-left: 10px">Ban on junk food!</span>
-                                <span class="stackedtext bottom-text" style="margin: 0 0 10px 10px">Council says yes to ban on junk food ads.</span>
+                    <asp:Repeater ID="rptSlides" runat="server">
+                        <ItemTemplate>
+                           <div class="news <%# Container.ItemIndex == 0 ? "active" : "" %>" style="background-image: url('<%# ResolveUrl(Eval("imgurl").ToString()) %>')">
+                                <div class="news-content">
+                                    <div class="text-container">
+                                        <span class="stackedtext top-text" style="margin-left: 10px"><%# Eval("title") %></span>
+                                        <span class="stackedtext bottom-text" style="margin: 0 0 10px 10px"><%# Eval("contents") %></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="news" style="background-image: url('images/salt.jpg')">
-                        <div class="news-content">
-                            <div class="text-container">
-                                <span class="stackedtext top-text" style="margin-left: 10px">Eating enough salt?</span>
-                                <span class="stackedtext bottom-text" style="margin: 0 0 10px 10px">Some are eating too much, some not enough.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="news" style="background-image: url('images/setTable.jpg')">
-                        <div class="news-content">
-                            <div class="text-container">
-                                <span class="stackedtext top-text" style="margin-left: 10px">Sleep better!</span>
-                                <span class="stackedtext bottom-text" style="margin: 0 0 10px 10px">List of foods that surprisingly lead to better sleep.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
+                        </ItemTemplate>
+                    </asp:Repeater>
+
                     <div class="indicators">
-                        <div class="indicator active" data-index="0"></div>
-                        <div class="indicator" data-index="1"></div>
-                        <div class="indicator" data-index="2"></div>
+                        <asp:Repeater ID="rptIndicators" runat="server">
+                            <ItemTemplate>
+                                <div class="indicator <%# Container.ItemIndex == 0 ? "active" : "" %>" data-index="<%# Container.ItemIndex %>"></div>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
                 </div>
             </div>
 
             <!-- SECOND ROW -->
             <!-- BULLETED LIST -->
+
             <div class="row2-box1 card">
-                <h3>International food holidays</h3>
+                <h3>Latest News</h3>
                 <hr>
                 <ul>
-                    <li>World pizza day - 9th February</li>
-                    <li>International sushi day - 18th June</li>
-                    <li>World pasta day - 25th October</li>
-                    <li>National taco day - 4th October</li>
-                    <li>World chocolate day - 7th July</li>
-                    <li>International coffee day - 1st October</li>
+                    <% if (ListNews != null && ListNews.Count > 0) { %>
+                        <% foreach(var newsItem in ListNews) { %>
+                            <li><%= newsItem.title %> - <%= newsItem.contents.Length > 50 ? newsItem.contents.Substring(0, 50) + "..." : newsItem.contents %></li>
+                        <% } %>
+                    <% } else { %>
+                        <li>No news items available</li>
+                    <% } %>
                 </ul>
                 <div class="card-footer">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
+                    <a href="https://www.space.com/">View More</a>
+                    <a href="#">Link</a>
                 </div>
             </div>
 
             <!-- BOX WITH HOVER -->
+
             <div class="row2-box2 whitebox">
                 <div class="hover-trigger-container">
                     <div class="default">
-                        <img src="images/pancakesWide.jpg">
+                        <img src="<%= !string.IsNullOrEmpty(HoverNews?.imgurl) ? ResolveUrl(HoverNews.imgurl) : "images/pancakesWide.jpg" %>">
                         <div class="text-container">
                             <span class="stackedtext top-text">
-                                Eat healthy!
+                                <%= HoverNews?.title ?? "No Title" %>
                             </span>
                             <span class="stackedtext bottom-text">
-                                Choose a healthy breakfast option.
+                                Hover to read more
                             </span>
                         </div>
                     </div>
                     <div class="hover-content">
                         <p>
-                            <strong>Breakfast is important:</strong><br>
-                            A healthy breakfast is important because it gives your body the energy and nutrients it needs to 
-                            start the day, helps improve focus and concentration, and supports overall health by boosting 
-                            metabolism and balancing blood sugar levels.
+                            <strong><%= HoverNews?.title ?? "No Title" %>:</strong><br>
+                            <%= HoverNews?.contents ?? "No contents available" %>
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- IMAGE AND CARD -->
+
             <div class="row2-wide">
                 <div class="midbox">
-                    <img src="images/pasta.jpg">
+                    <img src="<%= !string.IsNullOrEmpty(MidBoxNews?.imgurl) ? ResolveUrl(MidBoxNews.imgurl) : "images/pasta.jpg" %>">
                 </div>
                 <div class="midbox card">
-                    <h2> Dark Chocolate Benefits </h2>
+                    <h2><%= MidBoxNews?.title ?? "No Title" %></h2>
                     <div class="card-scrollable">
-                        <p> Dark chocolate can help lower blood pressure and reduce inflammation. 
-                            A study of an isolated tribe with high intakes of cocoa had lower rates of heart disease, 
-                            cancer and diabetes compared to the same tribesmen who had migrated to cities. 
-                        </p>
+                        <p><%= MidBoxNews?.contents ?? "No contents available" %></p>
                         <div class="rightcard-footer">
-                            <a href=""> Link 1 </a>
+                            <a href="#">Link 1</a>
                             <br/>
-                            <a href=""> Link 2 </a>
+                            <a href="#">Link 2</a>
                         </div>
                     </div>
                 </div>
@@ -154,20 +133,28 @@
 
             <!-- THIRD ROW -->
             <!-- PLAYABLE VIDEO -->
+            
             <div class="row3-box1 whitebox">
                 <video src="videos/foodVideo.mp4#t=0.1" controls="controls" preload="metadata" onclick="this.play();arguments[0].preventDefault();"></video>
             </div>
 
             <div class="row3-wide">
-                <img src="images/bowlWide.jpg">
+                <img src="<%= !string.IsNullOrEmpty(Row3WideNews?.imgurl) ? ResolveUrl(Row3WideNews.imgurl) : "images/bowlWide.jpg" %>">
+                <div class="text-container">
+                    <span class="stackedtext top-text">
+                        <%= Row3WideNews?.title ?? "No Title" %>
+                    </span>
+                    <span class="stackedtext bottom-text">
+                        <%= Row3WideNews?.contents?.Length > 60 ? Row3WideNews.contents.Substring(0, 60) + "..." : Row3WideNews?.contents ?? "No contents available" %>
+                    </span>
+                </div>
             </div>
-
-            <!-- TWITTER FEED -->
+           
             <div class="row3-box2 whitebox">
-                <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Loading" data-fw-param="175206/"></script> <!-- end feedwind code -->
+                <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Loading" data-fw-param="175419/"></script>
             </div>
         </div>
-
+       
         <!-- JS -->
         <script>
             // JS for rotating news
@@ -226,9 +213,95 @@
                         hideHover();
                     });
                 }
-            });    
+            });   
+
+            //search
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchBox = document.getElementById("searchBox");
+                const searchResults = document.getElementById("searchResults");
+                let timer;
+
+                console.log("Search initialized", searchBox, searchResults);
+
+                searchResults.innerHTML = "";
+                searchResults.style.display = "none";
+
+                searchBox.addEventListener("keyup", function () {
+                    clearTimeout(timer);
+                    const query = this.value.trim();
+
+                    console.log("Search query:", query);
+
+                    if (query.length === 0) {
+                        searchResults.innerHTML = "";
+                        searchResults.style.display = "none";
+                        return;
+                    }
+
+                    searchResults.innerHTML = "<div style='padding: 8px; background: white; color: black;'>Searching...</div>";
+                    searchResults.style.display = "block";
+
+                    //debounce
+                    timer = setTimeout(() => {
+                        console.log("Fetching results for:", query);
+
+                        fetch("SearchHandler.ashx?q=" + encodeURIComponent(query))
+                            .then(response => {
+                                console.log("Response status:", response.status);
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log("Data received:", data);
+                                searchResults.innerHTML = "";
+
+                                if (!data || data.length === 0) {
+                                    searchResults.innerHTML = "<div style='padding: 8px; background: white; color: black; border: 1px solid red;'>No results found</div>";
+                                    searchResults.style.display = "block";
+                                    return;
+                                }
+
+                                data.forEach(item => {
+                                    const div = document.createElement("div");
+                                    div.textContent = item.title;
+                                    div.style.padding = "8px";
+                                    div.style.background = "white";
+                                    div.style.color = "black";
+                                    div.style.cursor = "pointer";
+                                    div.style.borderBottom = "1px solid #ccc";
+                                    div.onclick = () => window.location.href = "NewsDetails.aspx?ID=" + item.id;
+                                    div.onmouseover = () => div.style.background = "#f0f0f0";
+                                    div.onmouseout = () => div.style.background = "white";
+                                    searchResults.appendChild(div);
+                                });
+                                searchResults.style.display = "block";
+                                console.log("Results appended, display:", searchResults.style.display);
+                            })
+                            .catch(err => {
+                                console.error("Search error:", err);
+                                searchResults.innerHTML = "<div style='padding: 8px; background: red; color: white;'>Error: " + err.message + "</div>";
+                                searchResults.style.display = "block";
+                            });
+                    }, 300);
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
+                        searchResults.innerHTML = "";
+                        searchResults.style.display = "none";
+                    }
+                });
+
+                //enter was doing something weird 
+                searchBox.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") {
+                        e.preventDefault(); 
+                    }
+                });
+            });
+
+          
+
+
         </script>
-	</body>
-</html>
 
 </asp:Content>

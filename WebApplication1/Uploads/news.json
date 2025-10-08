@@ -1,0 +1,64 @@
+{
+  "news": [
+    {
+      "title": "SpaceX's Next Starship Prototype Taking Shape ",
+      "imgurl": "~/images/rocket.webp",
+      "content": "Construction of the test craft is proceeding apace, as two new photos posted on Twitter today (Sept. 17) by company founder and CEO Elon Musk reveal."
+    },
+    {
+      "title": "NASA's Juno Mission Cheks Out Eclipse on Jupiter",
+      "imgurl": "~/images/moonsatelite.webp",
+      "content": "All is well on our largest neighbor; NASA's Juno spacecraft just managed to spot the shadow of Jupiter's moon, Io, passing over its marbled clouds."
+    },
+    {
+      "title": "Europe Wants Ideas for Cave-Spelumking Moon Robots",
+      "imgurl": "~/images/rover.webp",
+      "content": "As NASA makes a big push to land humans on the moon's surface by 2024, the European Space Agency (ESA) wants to learn more about the lunar caves that lie beneath."
+    },
+    {
+      "title": "Lego Ideas The Evolution of STEM review",
+      "imgurl": "~/images/lego.webp",
+      "content": "This might just be one of our favorite science-themed Lego sets ever made."
+    },
+    {
+      "title": "15 years on, 'Halo: Reach' continues to be the golden standard of video game prequels",
+      "imgurl": "~/images/videogame.webp",
+      "content": "Bungie's Halo swan song remains a fan-favorite installment, and its appeal after all these years is more than just nostalgia."
+    },
+    {
+      "title": "Astronaut Megan McArthur, 1st woman to pilot SpaceX Dragon, retires after 25-year NASA career",
+      "imgurl": "~/images/astronaut.webp",
+      "content": "McArthur launched on two spaceflights, logging 213 days in orbit across her nearly 25 years, and held leadership positions at NASA's Johnson Space Center in Houston."
+    },
+    {
+      "title": "How magnets could help astronauts explore the moon and Mars",
+      "imgurl": "~/images/mars.webp",
+      "content": "Magnets could make bulky centrifuges obsolete in space oxygen systems."
+    },
+    {
+      "title": "Earth's Moon: Formation, Composition and Orbit",
+      "imgurl": "~/images/moon.webp",
+      "content": "Scientists say a giant impact knocked off the raw ingredients for the moon off the primitive molten Earth and into orbit."
+    },
+    {
+      "title": "Northern lights forecasts, alerts, and geomagnetic storm warnings",
+      "imgurl": "~/images/aurora.webp",
+      "content": "The latest aurora forecast for tonight help you make sure you're in the right place at the right time to see the northern lights."
+    },
+    {
+      "title": "Alien: Earth – how realistic are the extraterrestrials?",
+      "imgurl": "~/images/alien.webp",
+      "content": "Like many fans we are simply having fun using science to analyze the creatures."
+    },
+    {
+      "title": "See our neighboring galaxy Andromeda",
+      "imgurl": "~/images/galaxy.webp",
+      "content": "The Milky Way's closest neighbor shines in a spectacular new astrophotography portrait."
+    },
+    {
+      "title": "Astronauts welcome NASA's new 'ascans'",
+      "imgurl": "~/images/satelite.webp",
+      "content": "Expedition 73 crewmembers sequenced DNA and worked with virtual reality glasses this week, while also continuing to unpack cargo vehicles and congratulating NASA's 24th group of astronaut candidates."
+    }
+  ]
+}
