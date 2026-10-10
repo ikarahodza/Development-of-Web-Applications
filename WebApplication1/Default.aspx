@@ -47,7 +47,7 @@
                     <asp:Repeater ID="rptSlides" runat="server">
                         <ItemTemplate>
                            <div class="news <%# Container.ItemIndex == 0 ? "active" : "" %>" style="background-image: url('<%# ResolveUrl(Eval("imgurl").ToString()) %>')">
-                                <div class="news-content">
+                                <div class="news-contents">
                                     <div class="text-container">
                                         <span class="stackedtext top-text" style="margin-left: 10px"><%# Eval("title") %></span>
                                         <span class="stackedtext bottom-text" style="margin: 0 0 10px 10px"><%# Eval("contents") %></span>
@@ -103,7 +103,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="hover-content">
+                    <div class="hover-contents">
                         <p>
                             <strong><%= HoverNews?.title ?? "No Title" %>:</strong><br>
                             <%= HoverNews?.contents ?? "No contents available" %>
@@ -135,7 +135,7 @@
             <!-- PLAYABLE VIDEO -->
             
             <div class="row3-box1 whitebox">
-                <video src="videos/foodVideo.mp4#t=0.1" controls="controls" preload="metadata" onclick="this.play();arguments[0].preventDefault();"></video>
+                <video src="<%= VideoUrl %>#t=0.1" controls="controls" preload="metadata" onclick="this.play();arguments[0].preventDefault();"></video>
             </div>
 
             <div class="row3-wide">
@@ -185,30 +185,30 @@
             // JS for hover effect
             document.querySelectorAll('.hover-trigger-container').forEach(function(hoverContainer) {
                 const bottomText = hoverContainer.querySelector('.bottom-text');
-                const hoverContent = hoverContainer.querySelector('.hover-content');
+                const hoverContents = hoverContainer.querySelector('.hover-contents');
                 const defaultContent = hoverContainer.querySelector('.default');
-                if (bottomText && hoverContent && defaultContent) {
+                if (bottomText && hoverContents && defaultContent) {
                     function showHover() {
-                        hoverContent.style.opacity = '1';
-                        hoverContent.style.visibility = 'visible';
+                        hoverContents.style.opacity = '1';
+                        hoverContents.style.visibility = 'visible';
                         defaultContent.style.opacity = '0';
                     }
                     function hideHover() {
-                        hoverContent.style.opacity = '0';
-                        hoverContent.style.visibility = 'hidden';
+                        hoverContents.style.opacity = '0';
+                        hoverContents.style.visibility = 'hidden';
                         defaultContent.style.opacity = '1';
                     }
                     bottomText.addEventListener('mouseenter', function() {
                         showHover();
                     });
                     bottomText.addEventListener('mouseleave', function(e) {
-                        if (hoverContent.contains(e.relatedTarget)) return;
+                        if (hoverContents.contains(e.relatedTarget)) return;
                         hideHover();
                     });
-                    hoverContent.addEventListener('mouseenter', function() {
+                    hoverContents.addEventListener('mouseenter', function() {
                         showHover();
                     });
-                    hoverContent.addEventListener('mouseleave', function(e) {
+                    hoverContents.addEventListener('mouseleave', function(e) {
                         if (bottomText.contains(e.relatedTarget)) return;
                         hideHover();
                     });

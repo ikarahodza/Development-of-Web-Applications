@@ -122,7 +122,7 @@ html, body {
         transition: opacity 0.4s ease;
     }
 
-    .hover-trigger-container .hover-content {
+    .hover-trigger-container .hover-contents {
         position: absolute;
         top: 0;
         left: 0;
@@ -143,7 +143,7 @@ html, body {
         min-height: 0;
     }
 
-        .hover-trigger-container .hover-content p {
+        .hover-trigger-container .hover-contents p {
             color: #333;
             font-size: 14px;
             text-align: center;
@@ -454,7 +454,7 @@ header {
         opacity: 1;
     }
 
-.news-content {
+.news-contents {
     position: absolute;
     bottom: 0;
     left: 0;

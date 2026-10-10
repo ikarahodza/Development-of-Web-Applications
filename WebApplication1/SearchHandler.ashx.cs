@@ -39,8 +39,8 @@ namespace WebApplication1
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT TOP 5 ID, title 
-                                FROM News 
+                string query = @"SELECT TOP 5 ID, title
+                                FROM News
                                 WHERE title LIKE @search OR contents LIKE @search
                                 ORDER BY ID";
 

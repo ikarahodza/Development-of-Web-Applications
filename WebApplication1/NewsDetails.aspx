@@ -14,7 +14,7 @@
             <br />
             <asp:Image ID="imgNews" runat="server" CssClass="news-image" />
             <br />
-            <asp:Label ID="lblContent" runat="server" CssClass="news-content"></asp:Label>
+            <asp:Label ID="lblContent" runat="server" CssClass="news-contents"></asp:Label>
             <br />
             <asp:Button ID="btnBack" runat="server" Text="Back to News List" CssClass="back-button" OnClick="btnBack_Click" />
         </div>

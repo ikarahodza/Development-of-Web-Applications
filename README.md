@@ -12,7 +12,7 @@ A database-driven news portal built with **ASP.NET Web Forms (C#, .NET Framework
   - an auto-rotating slideshow with the 3 newest stories (changes every 5 seconds, with clickable indicators)
   - a "Latest News" list with the next 6 stories
   - a hover card, an image + text card, and a wide banner for featured stories
-  - an embedded video and an external RSS feed widget
+  - an embedded video (fetched from the NASA image/video API, with a local fallback) and an external RSS feed widget
 - **Live search.** Results appear as you type (debounced at 300 ms). They come from a custom `SearchHandler.ashx` endpoint that returns JSON and searches both titles and content.
 - **News details page.** Clicking a search result opens `NewsDetails.aspx?ID=…` with the full article and its image.
 - **Admin login.** Forms Authentication, with users checked against a `Users` table.
@@ -58,7 +58,7 @@ WebApplication1/
 ├── App_Start/               # Bundle and route config
 ├── Content/                 # Site.css, Admin.css, Login.css, NewsDetails.css
 ├── images/                  # Static images + downloaded news images
-├── videos/                  # Home page video
+├── videos/                  # Local fallback video for the home page
 ├── Uploads/                 # Sample JSON files
 ├── news.json                # Sample news data
 └── Web.config               # Connection string + authentication settings
@@ -89,8 +89,9 @@ CREATE TABLE Users (
     password NVARCHAR(100) NOT NULL
 );
 
--- Create an admin account
-INSERT INTO Users (username, password) VALUES ('admin', 'admin123');
+-- Create an admin account (password column stores a SHA-256 hash, not plain text)
+-- The hash below is for the password 'admin123'
+INSERT INTO Users (username, password) VALUES ('admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9');
 ```
 
 The connection string is in `Web.config`:
